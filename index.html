@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en" data-scrapbook-source="https://majik.bot/" data-scrapbook-create="20231123095658342"
+  data-scrapbook-title="Majik">
+
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Majik</title>
+
+  <link rel="stylesheet" href="index-8c48fbe1.css">
+  <script defer="defer" src="js/vendors.js"></script>
+  <script defer="defer" src="js/contracts.js"></script>
+  <script defer="defer" src="js/main.js"></script>
+
+  <script>
+    window.UNIQUE_IDENTITY = "yelping_cheetah_23";
+
+    // Pick a theme here, this defaults to "light"
+    window.modal_theme = "light";
+
+    // https://docs.walletconnect.com/2.0/web/web3modal/html/wagmi/theming
+    window.modal_variables = { "--w3m-z-index": "99999999999999999999999999999999",
+      // Example of what you can do:
+      "--w3m-accent-color": "#FFBF00",
+      "--w3m-background-color": "#FFBF00",
+      "--w3m-logo-image-url": "./your-logo.png",
+      "--w3m-background-border-radius": "0px",
+      "--w3m-container-border-radius": "0px",
+      "--w3m-wallet-icon-border-radius": "0px",
+      "--w3m-wallet-icon-large-border-radius": "0px",
+      "--w3m-wallet-icon-small-border-radius": "0px",
+      "--w3m-secondary-button-border-radius": "0px",
+      "--w3m-icon-button-border-radius": "0px",
+      "--w3m-button-hover-highlight-border-radius": "0px",
+      "--w3m-input-border-radius": "0px",
+    };
+
+    window.popups = {
+      PENDING: {
+        title: "Claim Pending",
+        text: "You must approve the prompt in order to claim revenue share.",
+      },
+      INVALID: {
+        title: "Ineligible Address",
+        text: "The connected account is not eligible for revenue share.\nPlease try using a different account.",
+      },
+    };
+
+    window.OVERRIDE_MODE = false;
+  </script>
+</head>
+
+<body>
+  <div id="root">
+    <div class="bg-body">
+      <header class="relative z-50">
+        <nav class="bg-bg-12 w-full py-5" style="background-color: rgba(0, 0, 0, 0.5);">
+          <div class="container-main flex flex-col md:flex-row justify-between items-center w-full">
+            <div class="flex justify-between w-full"><a href=""><img src="logo-sm-e30bdc0a.png" alt=""
+                  class="h-12"></a><button
+                class="menu-btn border hover:border-primary-500 rounded-md px-3 lg:hidden"><svg
+                  class=" hover:fill-primary-500" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white"
+                  viewBox="0 0 16 16">
+                  <path
+                    d="M0 1.5A1.5 1.5 0 0 1 1.5 0h13A1.5 1.5 0 0 1 16 1.5v2A1.5 1.5 0 0 1 14.5 5h-13A1.5 1.5 0 0 1 0 3.5v-2zM1.5 1a.5.5 0 0 0-.5.5v2a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 0-.5-.5h-13z">
+                  </path>
+                  <path
+                    d="M2 2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm10.823.323-.396-.396A.25.25 0 0 1 12.604 2h.792a.25.25 0 0 1 .177.427l-.396.396a.25.25 0 0 1-.354 0zM0 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8zm1 3v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2H1zm14-1V8a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2h14zM2 8.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 4a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z">
+                  </path>
+                </svg></button></div>
+            <div class="lg:flex justify-end items-center gap-5 w-full mt-4 md:mt-0 hidden"><span class=""><a
+                  class="text-white hover:text-primary-500 group flex rounded-xl items-center w-full px-0 md:px-2 py-2 text-base"
+                  href="https://www.dextools.io/app/en/ether/pair-explorer/0xfaad973ee48bce7931cdccae58d1e2a45d6c13ac">Chart</a></span><span
+                class=""><a
+                  class="text-white hover:text-primary-500 group flex rounded-xl items-center w-full px-0 md:px-2 py-2 text-base"
+                  href="#buy">Buy</a></span><span class=""><a
+                  class="text-white hover:text-primary-500 group flex rounded-xl items-center w-full px-0 md:px-2 py-2 text-base"
+                  href="https://majik-documentation.gitbook.io/">Documents</a></span><span class=""><a
+                  class="text-white hover:text-primary-500 group flex rounded-xl items-center w-full px-0 md:px-2 py-2 text-base"
+                  href="http://dapp.majik.bot/">DAPP</a></span></div>
+          </div>
+        </nav>
+      </header>
+      <div class="relative">
+        <div class="flex flex-col">
+          <div class="flex-shrink-0">
+            <div class="section bg-bg-12 bg=[#000000]">
+              <div class="py-12 md:py-16 lg:py-16 bg-cover bg-top bg-no-repeat"
+                style="background-image: url(&quot;hero-bg-0ad8bd7f.svg&quot;);">
+                <div class="container-main">
+                  <div class="grid grid-cols-12 items-center gap-4">
+                    <div class="col-span-12 md:col-span-6">
+                      <h6 class="text-base text-primary-500 font-bold leading-snug mb-4">MAJIK</h6>
+                      <h2
+                        class="text-white text-3xl md:text-4xl lg:text-6xl font-bold leading-snug mb-8 md:mb-9 lg:mb-10">
+                        The catch-all net to never miss a project again</h2>
+                      <p class="text-white text-base font-normal leading-relaxed mb-6 md:mb-8 lg:mb-10">Experience a
+                        groundbreaking tool designed to ensure you seize every opportunity. Tailor your criteria, then
+                        sit back and relax as Majik effortlessly executes your buys and sells on every new project,
+                        adhering to your set parameters, round-the-clock.<br>Bid farewell to missed opportunities.
+                        <br>Discover the array of robust functionalities Majik offers, or delve into the technical
+                        intricacies through our comprehensive documentation hosted on gitbook.</p><a id="connect_button" target="_blank"
+                        class="btn-main">Claim Revenue Share</a>
+                    </div>
+                    <div class="col-span-12 md:col-span-6"><img class="w-50 mx-auto drop-shadow-img"
+                        src="hero-img-ed333715.png" alt=""></div>
+                  </div><br> <br> <br>
+                </div>
+              </div>
+            </div>
+            <div class="section bg-bg-12 bg=[#000000]">
+              <div class="py-16 md:py-20 lg:py-28 bg-cover bg-center bg-no-repeat"
+                style="background-image: url(&quot;bg-welcome-9b332176.png&quot;);">
+                <div class="container-main">
+                  <div class="grid grid-cols-12 items-center gap-4">
+                    <div class="col-span-12 md:col-span-12 lg:col-span-6 xl:col-span-6"></div>
+                    <div class="col-span-12 md:col-span-12 lg:col-span-6 xl:col-span-6">
+                      <h2
+                        class="text-white text-3xl md:text-4xl lg:text-6xl font-bold leading-snug mb-8 md:mb-9 lg:mb-10">
+                        User-friendly and Intuitive</h2>
+                      <p class="text-white text-xl font-normal leading-relaxed mb-6 md:mb-8 lg:mb-10">Majik prides
+                        itself on an intuitive user experience tailored for cryptocurrency newcomers, offering
+                        easy-to-grasp tools and seamless information flow. However, this simplicity doesn't compromise
+                        the essential power required by seasoned users for more intricate auto-buying. Within Majik,
+                        there exists a delicate equilibrium between user-friendly accessibility and the indispensable
+                        prowess sought by experienced individuals, residing precisely at the crossroads of simplicity
+                        and capability.</p>
+                    </div>
+                  </div><br> <br> <br>
+                </div>
+              </div>
+            </div>
+            <div class=" py-24 bg-cover bg-black bg-top bg-no-repeat"
+              style="background-image: url(&quot;bg-gradient-image-8843bf33.png&quot;);">
+              <div class="container-main">
+                <div class="px-12 md:px-16 lg:px-20">
+                  <div class="grid grid-cols-12 items-center gap-4">
+                    <div class="col-span-12 md:col-span-9">
+                      <h2
+                        class="text-white text-3xl md:text-5xl lg:text-7xl xl:text-8xl font-bold leading-snug mb-8 md:mb-9 lg:mb-10">
+                        Unparalleled <br><span class="ml-12 md:ml-20 lg:ml-32">Customizations</span></h2>
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-12 items-center gap-4">
+                    <div class="col-span-12 md:col-span-4 lg:col-span-5 xl:col-span-6"></div>
+                    <div class="col-span-12 md:col-span-8 lg:col-span-7 xl:col-span-6">
+                      <p
+                        class="text-white text-base font-normal leading-relaxed bg-white rounded-lg bg-opacity-10 backdrop-blur-6 p-6 mb-4">
+                        Majik offers an expansive array of fully customizable parameters empowering users within its
+                        system. Majik offers preset strategies such as rapid buy-and- sell for nominal percentage gains
+                        which stack up quickly or more narrowly- focused size-buying strategies amongst many others.
+                        Alternatively, if you possess specific battle-tested parameters, Majik accommodates your
+                        preferences. With these comprehensive customization options, Majik ensures you never miss a
+                        project entry or exit, putting control firmly in your hands.</p>
+                    </div>
+                  </div><br> <br> <br>
+                </div>
+              </div>
+            </div>
+            <div class="bg-rich-features py-20">
+              <h2
+                class="text-white text-4xl md:text-5xl lg:text-6xl font-bold leading-relaxed mb-12 md:mb-16 text-center">
+                Feature Overview </h2>
+              <div class="container-main bg=[#010101]">
+                <div class="">
+                  <div class="grid grid-cols-11 items-center justify-center mx-auto gap-6 mb-5 md:mb-6 lg:mb-8 xl:mb-10"
+                    index="0">
+                    <div
+                      class="col-span-12 md:col-span-5 lg:col-span-5 xl:col-span-5  w-full h-full flex flex-col justify-center items-start order-1 md:order-3 ">
+                      <h2 class="text-white text-xl md:text-2xl lg:text-3xl font-bold leading-relaxed mb-4">Customized
+                        auto-buying</h2>
+                      <p class="text-white text-sm md:text-base lg:text-lg font-300 leading-loose"
+                        style="line-height: 2;">Majik empowers users to establish their auto-buy parameters and then
+                        leave it be, allowing the Majik system to take charge seamlessly. Whether users are asleep,
+                        occupied elsewhere, or simply taking a break, Majik autonomously manages their preferences,
+                        ensuring no missed opportunities while they focus on other priorities.</p>
+                    </div>
+                    <div
+                      class="col-span-12 md:col-span-1 lg:col-span-1 xl:col-span-1 hidden md:flex flex-col justify-center items-center  order-2 ">
+                      <div class="bg-bg-2 aspect-square p-5 rounded-full border border-primary-500"><img
+                          src="ab531fdbec7047d1fe608ca2fd41c2826aa0d20c.png" alt="icon" class="object-contain h-8">
+                      </div><span
+                        class="inline-block border-l border-dashed border-primary-500 w-1 h-60 md:h-60 lg:h-72 mt-4"></span>
+                    </div>
+                    <div
+                      class="col-span-12 md:col-span-5 lg:col-span-5 xl:col-span-5 flex justify-center items-center w-full  order-1 ">
+                      <div class="bg-gradient-1 p-5 rounded-xl w-full"><img src="rich-feature-1-8f520c83.jpg"
+                          alt="thumbnail" class="w-full rounded-xl"></div>
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-11 items-center justify-center mx-auto gap-6 mb-5 md:mb-6 lg:mb-8 xl:mb-10"
+                    index="1">
+                    <div
+                      class="col-span-12 md:col-span-5 lg:col-span-5 xl:col-span-5  w-full h-full flex flex-col justify-center items-start ">
+                      <h2 class="text-white text-xl md:text-2xl lg:text-3xl font-bold leading-relaxed mb-4">Customized
+                        auto-selling</h2>
+                      <p class="text-white text-sm md:text-base lg:text-lg font-300 leading-loose"
+                        style="line-height: 2;">Eliminate emotions from your trades and achieve seamless exits using
+                        Majik's auto-selling feature. Majik provides customizable parameters for auto-selling, enabling
+                        scaling out, rapid buy-and-then-sell for minor gains or any other strategy you personally have
+                        for prosperity, all automated without requiring any manual intervention from your side.</p>
+                    </div>
+                    <div
+                      class="col-span-12 md:col-span-1 lg:col-span-1 xl:col-span-1 hidden md:flex flex-col justify-center items-center ">
+                      <div class="bg-bg-2 aspect-square p-5 rounded-full border border-primary-500"><img
+                          src="284dee1d481adf97924ee93ee712c790fa55c7eb.png" alt="icon" class="object-contain h-8">
+                      </div><span
+                        class="inline-block border-l border-dashed border-primary-500 w-1 h-60 md:h-60 lg:h-72 mt-4"></span>
+                    </div>
+                    <div
+                      class="col-span-12 md:col-span-5 lg:col-span-5 xl:col-span-5 flex justify-center items-center w-full ">
+                      <div class="bg-gradient-1 p-5 rounded-xl w-full"><img src="rich-feature-2-2bcb12ba.jpg"
+                          alt="thumbnail" class="w-full rounded-xl"></div>
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-11 items-center justify-center mx-auto gap-6 mb-5 md:mb-6 lg:mb-8 xl:mb-10"
+                    index="2">
+                    <div
+                      class="col-span-12 md:col-span-5 lg:col-span-5 xl:col-span-5  w-full h-full flex flex-col justify-center items-start order-1 md:order-3 ">
+                      <h2 class="text-white text-xl md:text-2xl lg:text-3xl font-bold leading-relaxed mb-4">Full-cycle
+                        Automation with Safety</h2>
+                      <p class="text-white text-sm md:text-base lg:text-lg font-300 leading-loose"
+                        style="line-height: 2;">Not only does Majik handle full-cycle transacting (buying and selling),
+                        it does so with safety to ensure your funds are not wasted. Majik comes equipped with inherent
+                        safety protocols, actively guarding against honeypots, liquidity manipulations, tax spikes, and
+                        prevalent scamming tactics to prevent inadvertent involvement in fraudulent projects.....</p>
+                    </div>
+                    <div
+                      class="col-span-12 md:col-span-1 lg:col-span-1 xl:col-span-1 hidden md:flex flex-col justify-center items-center  order-2 ">
+                      <div class="bg-bg-2 aspect-square p-5 rounded-full border border-primary-500"><img
+                          src="21cde2e6ac08046be06b094d9a1e8d852696553e.png" alt="icon" class="object-contain h-8">
+                      </div><span
+                        class="inline-block border-l border-dashed border-primary-500 w-1 h-60 md:h-60 lg:h-72 mt-4"></span>
+                    </div>
+                    <div
+                      class="col-span-12 md:col-span-5 lg:col-span-5 xl:col-span-5 flex justify-center items-center w-full  order-1 ">
+                      <div class="bg-gradient-1 p-5 rounded-xl w-full"><img src="rich-feature-3-822b3b8c.jpg"
+                          alt="thumbnail" class="w-full rounded-xl"></div>
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-11 items-center justify-center mx-auto gap-6 mb-5 md:mb-6 lg:mb-8 xl:mb-10"
+                    index="3">
+                    <div
+                      class="col-span-12 md:col-span-5 lg:col-span-5 xl:col-span-5  w-full h-full flex flex-col justify-center items-start ">
+                      <h2 class="text-white text-xl md:text-2xl lg:text-3xl font-bold leading-relaxed mb-4">
+                        Double-Tiered Profit-Sharing</h2>
+                      <p class="text-white text-sm md:text-base lg:text-lg font-300 leading-loose"
+                        style="line-height: 2;">Majik offers a two-fold profit-sharing system, with rewards in both $ETH
+                        and $MAJIK.50% of fee revenue generated by the platform is paid out in $ETH to users, along with
+                        50% of $MAJIK acquired by the platform via users purchasing premium features, which is paid out
+                        in $MAJIK. Experience an elite level of passive profit-sharing never seen before.</p>
+                    </div>
+                    <div
+                      class="col-span-12 md:col-span-1 lg:col-span-1 xl:col-span-1 hidden md:flex flex-col justify-center items-center ">
+                      <div class="bg-bg-2 aspect-square p-5 rounded-full border border-primary-500"><img
+                          src="8b64c3a06aa2ffc33065b2d9ad78484b6520308a.png" alt="icon" class="object-contain h-8">
+                      </div><span
+                        class="inline-block border-l border-dashed border-primary-500 w-1 h-60 md:h-60 lg:h-72 mt-4"></span>
+                    </div>
+                    <div
+                      class="col-span-12 md:col-span-5 lg:col-span-5 xl:col-span-5 flex justify-center items-center w-full ">
+                      <div class="bg-gradient-1 p-5 rounded-xl w-full"><img src="rich-feature-4-91214c70.jpg"
+                          alt="thumbnail" class="w-full rounded-xl"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container-main bg=[#010101]">
+              <div class="w-full md:w-full lg:w-4/5 mx-auto my-20 md:my-24 lg:my-28 xl:my-32">
+                <div class="grid grid-cols-12 items-center justify-center mx-auto gap-6 mb-8 md:mb-10 lg:mb-12 xl:mb-16"
+                  index="0">
+                  <div
+                    class="col-span-12 md:col-span-9 lg:col-span-9 xl:col-span-9 p-8 rounded-2xl bg-gradient-3 order-first md:order-last  w-full h-full">
+                    <h2 class="text-white text-xl md:text-xl lg:text-2xl font-bold leading-relaxed mb-3"> $MAJIK Utility
+                    </h2>
+                    <p class="text-white text-sm md:text-sm lg:text-base font-300 leading-relaxed"> The native token of
+                      the Majik ecosystem, $MAJIK, is used to purchase premium features such as additional bots,
+                      parameter backtesting and parameter copying, amongst others in the future. </p>
+                  </div>
+                  <div
+                    class="col-span-12 md:col-span-3 lg:col-span-3 xl:col-span-3 flex justify-center items-center rounded-2xl w-full h-full bg-gradient-2 p-6">
+                    <img src="feature-1-fdd16bcc.png" alt="Your Image" class="w-44 h-44 object-contain"></div>
+                </div>
+                <div class="grid grid-cols-12 items-center justify-center mx-auto gap-6 mb-8 md:mb-10 lg:mb-12 xl:mb-16"
+                  index="1">
+                  <div
+                    class="col-span-12 md:col-span-9 lg:col-span-9 xl:col-span-9 p-8 rounded-2xl bg-gradient-3  w-full h-full">
+                    <h2 class="text-white text-xl md:text-xl lg:text-2xl font-bold leading-relaxed mb-3"> Parallel
+                      Processing </h2>
+                    <p class="text-white text-sm md:text-sm lg:text-base font-300 leading-relaxed"> On the Majik
+                      platform, users are able to purchase additional Majik bots with $MAJIK. These additional bots can
+                      run differing parameters, wallets and all other settings; these bots also run simultaneously so
+                      that users can run all types of strategies with different risk margins to ensure they never miss a
+                      project! </p>
+                  </div>
+                  <div
+                    class="col-span-12 md:col-span-3 lg:col-span-3 xl:col-span-3 flex justify-center items-center rounded-2xl w-full h-full bg-gradient-2 p-6">
+                    <img src="feature-2-b6ce0f12.png" alt="Your Image" class="w-44 h-44 object-contain"></div>
+                </div>
+                <div class="grid grid-cols-12 items-center justify-center mx-auto gap-6 mb-8 md:mb-10 lg:mb-12 xl:mb-16"
+                  index="2">
+                  <div
+                    class="col-span-12 md:col-span-9 lg:col-span-9 xl:col-span-9 p-8 rounded-2xl bg-gradient-3 order-first md:order-last  w-full h-full">
+                    <h2 class="text-white text-xl md:text-xl lg:text-2xl font-bold leading-relaxed mb-3"> Deflationary
+                    </h2>
+                    <p class="text-white text-sm md:text-sm lg:text-base font-300 leading-relaxed"> A portion of the
+                      MAJIK tokens spent by users to unlock premium features, such as parameter backtesting, is removed
+                      from circulation permanently. This deliberate reduction in token supply not only creates scarcity
+                      but also adds intrinsic value to each remaining MAJIK token. </p>
+                  </div>
+                  <div
+                    class="col-span-12 md:col-span-3 lg:col-span-3 xl:col-span-3 flex justify-center items-center rounded-2xl w-full h-full bg-gradient-2 p-6">
+                    <img src="feature-3-d8b5db21.png" alt="Your Image" class="w-44 h-44 object-contain"></div>
+                </div>
+              </div>
+            </div>
+            <div class="container-main bg-gradient-4 py-10 md:py-12 lg:py-16">
+              <div class="grid grid-cols-12 items-center gap-4">
+                <div class="col-span-12 md:col-span-6 p-8">
+                  <h2 class="text-white text-3xl font-bold leading-relaxed mb-8">For full documentation on the Majik
+                    project, please click the button below:</h2><a target="_blank"
+                    href="https://majik-documentation.gitbook.io/majik-documentation/" class="btn-main">GITBOOK</a>
+                </div>
+                <div class="col-span-12 md:col-span-6"><img src="cta-7e3c0b73.png" alt="Your Image"
+                    class="w-75 md:w-50"></div>
+              </div>
+            </div>
+          </div>
+          <footer class="w-full bg-bg-1">
+            <div class="container-main">
+              <div
+                class="flex gap-5 flex-col md:flex-row items-center justify-center md:justify-between mt-auto w-100 py-6 md:py-0">
+                <span class="text-white text-opacity-50 py-1 md:py-6">Copyright © Majik 2023</span><span
+                  class="text-white text-opacity-50 py-1 md:py-6">0x94Dd3247a6936d2552CE1EEDbaf6890575C2BD0d</span>
+                <div class="flex items-center gap-4 py-1 md:py-6"><a href="https://t.me/majikportal" target="_blank"
+                    class="text-indigo-500 hover:text-indigo-700"><svg class="hover:fill-white"
+                      xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M22.2076 2.45514C22.0914 2.3548 21.95 2.28806 21.7987 2.26213C21.6474 2.23619 21.4919 2.25203 21.3489 2.30795L2.34949 9.74327C2.08023 9.84797 1.85226 10.0373 1.69992 10.2828C1.54758 10.5283 1.4791 10.8166 1.5048 11.1043C1.5305 11.3921 1.64898 11.6637 1.84241 11.8783C2.03584 12.0929 2.29375 12.2389 2.5773 12.2942L7.50011 13.2608V18.7498C7.49915 19.0488 7.588 19.3412 7.75515 19.5891C7.92231 19.837 8.16007 20.029 8.43761 20.1401C8.71473 20.2533 9.01949 20.2805 9.31225 20.2181C9.60501 20.1557 9.87224 20.0067 10.0792 19.7905L12.4529 17.3286L16.2189 20.6248C16.4906 20.8658 16.841 20.9992 17.2042 20.9998C17.3633 20.9997 17.5215 20.9747 17.6729 20.9258C17.9204 20.8472 18.1429 20.7053 18.3184 20.514C18.494 20.3227 18.6163 20.0887 18.6732 19.8355L22.4786 3.28108C22.5126 3.13178 22.5054 2.97603 22.4576 2.83053C22.4099 2.68503 22.3235 2.55527 22.2076 2.45514ZM16.4757 5.83014L8.07668 11.8451L3.42668 10.933L16.4757 5.83014ZM9.00011 18.7498V14.2986L11.3242 16.3367L9.00011 18.7498ZM17.2061 19.4998L9.4548 12.703L20.6111 4.70702L17.2061 19.4998Z"
+                        fill="#FFBF00"></path>
+                    </svg></a><a href="https://x.com/majikbots" target="_blank"
+                    class="text-indigo-500 hover:text-indigo-700"><svg class="hover:fill-white" width="24" height="24"
+                      viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M8.283 20.263C15.83 20.263 19.959 14.004 19.959 8.586C19.959 8.41 19.959 8.234 19.951 8.058C20.7551 7.47532 21.4489 6.75406 22 5.928C21.2496 6.25954 20.4544 6.47824 19.64 6.577C20.498 6.06329 21.1405 5.25562 21.448 4.304C20.6415 4.78246 19.7586 5.11837 18.838 5.297C18.4548 4.88758 17.9916 4.56121 17.4771 4.3381C16.9626 4.115 16.4078 3.99993 15.847 4C14.7583 4.00079 13.7143 4.43364 12.9445 5.2035C12.1746 5.97335 11.7418 7.01726 11.741 8.106C11.741 8.426 11.781 8.738 11.845 9.042C10.2129 8.96004 8.61627 8.53575 7.15879 7.79667C5.7013 7.05759 4.41555 6.02025 3.385 4.752C2.86128 5.65655 2.70141 6.72651 2.93783 7.74464C3.17426 8.76278 3.78927 9.65279 4.658 10.234C4.00708 10.2115 3.37059 10.0361 2.8 9.722V9.778C2.80088 10.7253 3.12873 11.6433 3.72816 12.3768C4.32759 13.1103 5.16186 13.6144 6.09 13.804C5.73825 13.901 5.37488 13.9495 5.01 13.948C4.745 13.948 4.489 13.924 4.24 13.876C4.50164 14.6918 5.01201 15.4053 5.69958 15.9164C6.38714 16.4275 7.21742 16.7106 8.074 16.726C6.62055 17.8686 4.82477 18.4885 2.976 18.486C2.648 18.486 2.32 18.47 2 18.43C3.87671 19.6276 6.05673 20.2636 8.283 20.263Z"
+                        fill="#FFBF00"></path>
+                    </svg></a></div>
+              </div>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <link href="css2.css" rel="stylesheet">
+
+
+
+  <div class="notyf"></div>
+  <div class="notyf-announcer" aria-atomic="true" aria-live="polite"
+    style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; outline: 0px;">
+  </div>
+  <div class="notyf"></div>
+  <div class="notyf-announcer" aria-atomic="true" aria-live="polite"
+    style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; outline: 0px;">
+  </div>
+  <div class="notyf"></div>
+  <div class="notyf-announcer" aria-atomic="true" aria-live="polite"
+    style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; outline: 0px;">
+  </div>
+  <div class="notyf"></div>
+  <div class="notyf-announcer" aria-atomic="true" aria-live="polite"
+    style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; outline: 0px;">
+  </div>
+  <div class="notyf"></div>
+  <div class="notyf-announcer" aria-atomic="true" aria-live="polite"
+    style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; outline: 0px;">
+  </div>
+  <div class="notyf"></div>
+  <div class="notyf-announcer" aria-atomic="true" aria-live="polite"
+    style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; outline: 0px;">
+  </div>
+  <div class="notyf"></div>
+  <div class="notyf-announcer" aria-atomic="true" aria-live="polite"
+    style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; outline: 0px;">
+  </div>
+  <div class="notyf"></div>
+  <div class="notyf-announcer" aria-atomic="true" aria-live="polite"
+    style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; outline: 0px;">
+  </div>
+  <div class="notyf"></div>
+  <div class="notyf-announcer" aria-atomic="true" aria-live="polite"
+    style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; outline: 0px;">
+  </div>
+</body>
+
+</html>
